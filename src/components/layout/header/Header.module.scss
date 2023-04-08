@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+  padding: 20px;
+  border-bottom: 2px solid #563d7c;
+
+  .slogan {
+    font-size: 24px;
+    font-weight: bold;
+    margin-right: 30px;
+  }
+
+  .menu {
+    a {
+      color: #563d7c;
+
+      &.button {
+        background-color: #563d7c;
+        color: white;
+      }
+    }
+  }
+}

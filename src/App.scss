@@ -1,0 +1,13 @@
+.App {
+  max-width: 1200px;
+  margin: 0 auto;
+  background-color: white;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+
+  article {
+    padding: 20px;
+    flex: 1;
+  }
+}
