@@ -7,9 +7,11 @@
   "license": "MIT",
   "homepage": "/",
   "dependencies": {
+    "@apollo/client": "^3.7.11",
     "bootstrap": "^5.2.3",
     "clsx": "^1.2.1",
     "css-loader": "^6.7.3",
+    "graphql": "^16.6.0",
     "react": "^18.2.0",
     "react-bootstrap": "^2.7.2",
     "react-dom": "^18.2.0",
