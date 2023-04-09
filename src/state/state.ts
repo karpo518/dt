@@ -63,8 +63,6 @@ export const saveUsers = (users: TUser[]) => {
 export const loadUsers = () => {
   
   let users: TUser[]
-
-  console.log(localStorage.users)
   
   if(localStorage.users) {
     users = JSON.parse(localStorage.users)
