@@ -8,25 +8,23 @@ import { NotFoundPage } from "../../error/404/NotFoundPage";
 import { useReactiveVar } from "@apollo/client";
 
 export const UserUpdatePage = () => {
-  
-  useReactiveVar(usersVar)
+  useReactiveVar(usersVar);
 
   const { username } = useParams();
-  
-  const user = username ? getUser(username) : undefined
-  
+
+  const user = username ? getUser(username) : undefined;
+
   return (
     <div>
-      {user ?
-        (
-          <div className={s.wrapper}>
-            <h1>Изменить пользователя</h1>
-            <Notifier />
-            <UserForm isNewUser={false} values={user} />
-          </div>
-        )
-        : <NotFoundPage />
-      }
+      {user ? (
+        <div className={s.wrapper}>
+          <h1>Изменить пользователя</h1>
+          <Notifier />
+          <UserForm isNewUser={false} values={user} />
+        </div>
+      ) : (
+        <NotFoundPage />
+      )}
     </div>
   );
 };

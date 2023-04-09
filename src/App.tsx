@@ -6,9 +6,8 @@ import { Header } from "./components/layout/header/Header";
 import { loadUsers } from "./state/state";
 
 function App() {
-
   useEffect(() => {
-    loadUsers()
+    loadUsers();
   }, []);
 
   return (
