@@ -5,15 +5,15 @@ import { TNewUser } from '../../../../common/types/types';
 import { CustomSelect } from '../../forms/CustomSelect';
 import s from "./UserForm.module.scss";
 import { getUserFormSchema } from './UserFormValidation';
-import { RoleVariants, createUser, notificationStyles, showNotification, workBordersVariants } from '../../../../state/state';
+import { RoleVariants, createUser, notificationStyles, showNotification, updateUser, workBordersVariants } from '../../../../state/state';
 
 
 
 
-const RoleOptions = RoleVariants.map(r => { return {label: r, value: r} })
-const workBordersOptions = workBordersVariants.map(wb => { return {label: wb.name, value: wb.id} })
+const RoleOptions = RoleVariants.map(r => { return { label: r, value: r } })
+const workBordersOptions = workBordersVariants.map(wb => { return { label: wb.name, value: wb.id } })
 
-const workBordersValues = workBordersVariants.map(wb => wb.id )
+const workBordersValues = workBordersVariants.map(wb => wb.id)
 
 const UserFormSchema = getUserFormSchema(RoleVariants, workBordersValues)
 
@@ -33,44 +33,54 @@ type TProps = {
   isNewUser: boolean
 }
 
-type TStatus = {success: boolean, message: string}
+export const UserForm: FC<TProps> = ({ values, isNewUser }) => {
 
-export const UserForm:FC<TProps> = ({values, isNewUser}) => {
-  
-  const initialValues = {...defaultValues, ...values}
-  
+  const initialValues = { ...defaultValues, ...values }
+
   return (
     <Formik
+      enableReinitialize={true}
       initialValues={initialValues}
       validationSchema={UserFormSchema}
       onSubmit={(values, { setSubmitting, resetForm }) => {
         setTimeout(() => {
-          
-          if(isNewUser) {
+
+          let successMessage = ''
+
+          if (isNewUser) {
             createUser(values)
-            const successMessage = `Пользователь ${values.username} успешно добавлен`
-            console.log(successMessage)
-            showNotification(successMessage, notificationStyles.SUCCESS)
-            resetForm() 
+            successMessage = `Пользователь ${values.username} успешно добавлен`
+          }
+          else {
+            updateUser(values)
+            successMessage = `Пользователь ${values.username} успешно обновлён`
           }
 
-          //alert(JSON.stringify(values, null, 2));
+          console.log(successMessage)
+          showNotification(successMessage, notificationStyles.SUCCESS)
+          resetForm()
           setSubmitting(false);
         }, 400);
       }}
     >
-      {({ isSubmitting, status }) => (
-        
-        
-        <Form className={s.wrapper}>
-          
-          {status && status.success && <p className={s.status}>status.message</p>}
+      {({ isSubmitting }) => (
 
-          <div className={s.formItem} >
-            <label htmlFor={'username'} >Имя пользователя</label>
-            <Field type="text" name="username" className={s.simple} />
-            <ErrorMessage className={s.error} name="username" component="div" />
-          </div>
+
+        <Form className={s.wrapper}>
+
+          {isNewUser
+            ?
+            (<div className={s.formItem} >
+              <label htmlFor={'username'} >Имя пользователя</label>
+              <Field type={isNewUser ? 'text' : 'hidden'} name="username" className={s.simple} />
+              <ErrorMessage className={s.error} name="username" component="div" />
+            </div>)
+            :
+            (<div className={s.formItem} >
+              <div className={s.usernameText}>Пользователь: <span className={s.value}>{values.username}</span></div>
+              <Field type={'hidden'} name="username" className={s.simple} />
+            </div>)
+          }
 
           <div className={s.formItem} >
             <label htmlFor={'password'} >Пароль</label>

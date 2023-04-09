@@ -1,8 +1,8 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import "./index.scss";
 import { RouterProvider, createBrowserRouter } from "react-router-dom";
 import { routes } from "./common/routes";
+import "./index.scss";
 
 const router = createBrowserRouter(routes);
 

@@ -4,6 +4,7 @@ import { NotFoundPage } from "../components/pages/error/404/NotFoundPage";
 import { UserListPage } from "../components/pages/users/list/UserListPage";
 import { UserCreatePage } from "../components/pages/users/create/UserCreatePage";
 import App from "../App";
+import { UserUpdatePage } from "../components/pages/users/update/UserUpdatePage";
 
 export const routes: RouteObject[] = [
   {
@@ -18,6 +19,10 @@ export const routes: RouteObject[] = [
       {
         path: "users/create",
         element: <UserCreatePage />,
+      },
+      {
+        path: "users/update/:username",
+        element: <UserUpdatePage />,
       },
     ],
   },

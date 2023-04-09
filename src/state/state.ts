@@ -1,5 +1,5 @@
-import { TNewUser, TNotification, ValueOf } from './../common/types/types';
-import { makeVar } from "@apollo/client";
+import { TNewUser, TNotification } from './../common/types/types';
+import { InMemoryCache, makeVar, useReactiveVar } from "@apollo/client";
 import { TUser } from "../common/types/types";
 
 export const RoleVariants = ['ANT', 'ANT_MANAGER', 'ANT_OFFICER', 'DEVELOPER']
@@ -75,6 +75,12 @@ export const loadUsers = () => {
   }
   
   usersVar(users)
+
+  return users
+}
+
+export const getUser = (username: string) => {
+  return useReactiveVar(usersVar).find(u => u.username === username)
 }
 
 export const createUser = (user: TNewUser) => {
@@ -83,4 +89,12 @@ export const createUser = (user: TNewUser) => {
   const users = [{username, firstName, lastName, roles, workBorders}, ...usersVar()]
   saveUsers(users)
   usersVar(users)
+}
+
+export const updateUser = (user: TNewUser) => {
+
+  const {username, firstName, lastName, roles, workBorders} = user
+  const newUsers = usersVar().map(u => u.username !== user.username ? u : {...u, username, firstName, lastName, roles, workBorders})
+  saveUsers(newUsers)
+  usersVar([...newUsers])
 }
