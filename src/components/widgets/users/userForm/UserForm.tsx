@@ -5,7 +5,7 @@ import { TNewUser } from '../../../../common/types/types';
 import { CustomSelect } from '../../forms/CustomSelect';
 import s from "./UserForm.module.scss";
 import { getUserFormSchema } from './UserFormValidation';
-import { RoleVariants, createUser, workBordersVariants } from '../../../../state/state';
+import { RoleVariants, createUser, notificationStyles, showNotification, workBordersVariants } from '../../../../state/state';
 
 
 
@@ -43,15 +43,14 @@ export const UserForm:FC<TProps> = ({values, isNewUser}) => {
     <Formik
       initialValues={initialValues}
       validationSchema={UserFormSchema}
-      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
+      onSubmit={(values, { setSubmitting, resetForm }) => {
         setTimeout(() => {
           
           if(isNewUser) {
             createUser(values)
             const successMessage = `Пользователь ${values.username} успешно добавлен`
             console.log(successMessage)
-            const status:TStatus = {success: true, message: successMessage}
-            setStatus(status)
+            showNotification(successMessage, notificationStyles.SUCCESS)
             resetForm() 
           }
 

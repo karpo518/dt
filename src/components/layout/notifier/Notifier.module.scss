@@ -1,0 +1,15 @@
+.wrapper {
+  .item {
+    padding: 20px;
+    margin: 10px 0px;
+    border-radius: 10px;
+  }
+
+  .item__error {
+    background-color: #F5C5C5;
+  }
+
+  .item__success {
+    background-color: #CAF5C5;
+  }
+}
