@@ -1,8 +1,8 @@
-import React, { useEffect } from "react";
-import s from "./UserListPage.module.scss";
-import { UserPreview } from "../../../widgets/users/UserPreview";
 import { useReactiveVar } from "@apollo/client";
-import { initialUsers, usersVar } from "../../../../state/state";
+import React, { useEffect } from "react";
+import { loadUsers, usersVar } from "../../../../state/state";
+import { UserPreview } from "../../../widgets/users/userPreview/UserPreview";
+import s from "./UserListPage.module.scss";
 
 
 
@@ -13,7 +13,7 @@ export const UserListPage = () => {
   const userList = users.map((u) => <UserPreview key={u.username} {...u} />)
   
   useEffect(() => {
-    usersVar(initialUsers)
+    loadUsers()
   }, []);
 
 

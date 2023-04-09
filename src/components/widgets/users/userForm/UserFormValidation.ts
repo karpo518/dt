@@ -1,6 +1,6 @@
 import * as Yup from 'yup';
 
-export const getNewUserFromSchema = (roleValues: string[], workBordersValues: string[]) => {
+export const getUserFormSchema = (roleValues: string[], workBordersValues: string[]) => {
   return Yup.object().shape({
     username: Yup.string()
       .min(3, 'Имя пользователя слишком короткое!')

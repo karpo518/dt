@@ -7,7 +7,7 @@ export type TUser = {
   firstName: string,
   lastName: string,
   roles: string[],
-  workBorders: TWorkBorder[]
+  workBorders: string[]
 }
 
 type TWorkBorder = {

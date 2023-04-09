@@ -1,53 +1,71 @@
+import cn from 'clsx';
 import { ErrorMessage, Field, Form, Formik } from 'formik';
-import React from 'react'
-import s from "./UserCreateForm.module.scss";
-import { TNewUser } from '../../../../../common/types/types';
-import { CustomSelect } from '../../../../widgets/forms/CustomSelect';
-import { getNewUserFromSchema } from './UserCreateFormValidation';
-import cn from 'clsx'
+import React, { FC } from 'react';
+import { TNewUser } from '../../../../common/types/types';
+import { CustomSelect } from '../../forms/CustomSelect';
+import s from "./UserForm.module.scss";
+import { getUserFormSchema } from './UserFormValidation';
+import { RoleVariants, createUser, workBordersVariants } from '../../../../state/state';
 
 
-export const Roles = ['ANT', 'ANT_MANAGER', 'ANT_OFFICER', 'DEVELOPER']
-
-const RoleOptions = Roles.map(r => { return {label: r, value: r} })
-
-export const workBorders = [
-  { id: '1', name: 'Белгатой'},
-  { id: '2', name: 'Шали'},
-  { id: '3', name: 'Урус-Мартан' }
-]
-
-const workBordersOptions = workBorders.map(wb => { return {label: wb.name, value: wb.id} })
-
-const workBordersValues = workBorders.map(wb => wb.id )
-
-const newUserFormSchema = getNewUserFromSchema(Roles, workBordersValues)
 
 
-const initialValues: TNewUser = {
+const RoleOptions = RoleVariants.map(r => { return {label: r, value: r} })
+const workBordersOptions = workBordersVariants.map(wb => { return {label: wb.name, value: wb.id} })
+
+const workBordersValues = workBordersVariants.map(wb => wb.id )
+
+const UserFormSchema = getUserFormSchema(RoleVariants, workBordersValues)
+
+
+const defaultValues: TNewUser = {
   username: '',
   password: '',
   passwordRepeat: '',
   firstName: '',
   lastName: '',
-  roles: [Roles[0]],
+  roles: [RoleVariants[0]],
   workBorders: []
 }
 
-export const UserCreateForm = () => {
+type TProps = {
+  values: Partial<TNewUser>,
+  isNewUser: boolean
+}
+
+type TStatus = {success: boolean, message: string}
+
+export const UserForm:FC<TProps> = ({values, isNewUser}) => {
+  
+  const initialValues = {...defaultValues, ...values}
+  
   return (
     <Formik
       initialValues={initialValues}
-      validationSchema={newUserFormSchema}
-      onSubmit={(values, { setSubmitting }) => {
+      validationSchema={UserFormSchema}
+      onSubmit={(values, { setSubmitting, setStatus, resetForm }) => {
         setTimeout(() => {
-          alert(JSON.stringify(values, null, 2));
+          
+          if(isNewUser) {
+            createUser(values)
+            const successMessage = `Пользователь ${values.username} успешно добавлен`
+            console.log(successMessage)
+            const status:TStatus = {success: true, message: successMessage}
+            setStatus(status)
+            resetForm() 
+          }
+
+          //alert(JSON.stringify(values, null, 2));
           setSubmitting(false);
         }, 400);
       }}
     >
-      {({ isSubmitting }) => (
+      {({ isSubmitting, status }) => (
+        
+        
         <Form className={s.wrapper}>
+          
+          {status && status.success && <p className={s.status}>status.message</p>}
 
           <div className={s.formItem} >
             <label htmlFor={'username'} >Имя пользователя</label>
