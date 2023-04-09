@@ -6,6 +6,7 @@ import { CustomSelect } from '../../forms/CustomSelect';
 import s from "./UserForm.module.scss";
 import { getUserFormSchema } from './UserFormValidation';
 import { RoleVariants, createUser, notificationStyles, showNotification, updateUser, workBordersVariants } from '../../../../state/state';
+import { Loading } from '../../../layout/loading/Loading';
 
 
 
@@ -60,13 +61,15 @@ export const UserForm: FC<TProps> = ({ values, isNewUser }) => {
           showNotification(successMessage, notificationStyles.SUCCESS)
           resetForm()
           setSubmitting(false);
-        }, 400);
+        }, 3000);
       }}
     >
       {({ isSubmitting }) => (
 
 
         <Form className={s.wrapper}>
+
+          { isSubmitting && <Loading /> }
 
           {isNewUser
             ?
