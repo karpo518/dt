@@ -4,13 +4,29 @@
   padding: 20px;
   border-bottom: 2px solid #563d7c;
 
+  @media screen and (max-width: 400px) {
+    display: block;
+  }
+
   .slogan {
     font-size: 24px;
     font-weight: bold;
     margin-right: 30px;
+
+    @media screen and (max-width: 400px) {
+      margin-right: 0px;
+      text-align: center;
+    }
   }
 
   .menu {
+    
+    @media screen and (max-width: 400px) {
+      margin: 0px auto;
+      justify-content: center;
+      margin-top: 10px;
+    }
+    
     a {
       color: #563d7c;
 
