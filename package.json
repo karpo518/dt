@@ -5,7 +5,7 @@
   "repository": "git@github.com:karpo518/dt.git",
   "author": "a.e.tyapkin@gmail.com",
   "license": "MIT",
-  "homepage": "https://karpo518.github.io/dt/",
+  "homepage": "/dt/",
   "dependencies": {
     "@apollo/client": "^3.7.11",
     "bootstrap": "^5.2.3",
