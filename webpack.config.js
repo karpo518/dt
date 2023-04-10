@@ -2,6 +2,7 @@
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
+const DotenvPlugin = require('dotenv-webpack');
 
 module.exports = {
   entry: "./src/index.tsx",
@@ -14,6 +15,7 @@ module.exports = {
       template: path.join(__dirname, "public", "index.html"),
     }),
     new CompressionPlugin({ test: /\.js(\?.*)?$/i }),
+    new DotenvPlugin()
   ],
   devServer: {
     static: {

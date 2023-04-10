@@ -5,7 +5,7 @@
   "repository": "git@github.com:karpo518/dt.git",
   "author": "a.e.tyapkin@gmail.com",
   "license": "MIT",
-  "homepage": "/",
+  "homepage": "https://karpo518.github.io/dt/",
   "dependencies": {
     "@apollo/client": "^3.7.11",
     "bootstrap": "^5.2.3",
@@ -35,9 +35,11 @@
     "@typescript-eslint/parser": "^5.57.1",
     "babel-loader": "^9.1.2",
     "compression-webpack-plugin": "^10.0.0",
+    "dotenv-webpack": "^8.0.1",
     "eslint": "^8.38.0",
     "eslint-config-prettier": "^8.8.0",
     "eslint-plugin-react": "^7.32.2",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "prettier": "2.8.7",
     "typescript": "^5.0.4",
@@ -47,6 +49,8 @@
   },
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development --env development --open --hot"
+    "start": "webpack serve --mode development --env development --open --hot",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   }
 }

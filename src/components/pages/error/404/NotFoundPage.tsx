@@ -7,7 +7,7 @@ export const NotFoundPage = () => {
       <h1>Страница не найдена!</h1>
       <p>
         Измените URL или перейдите на главную страницу{" "}
-        <Link to={`/`}>главную страницу</Link>.
+        <Link to={process.env.PUBLIC_URL || '/'}>главную страницу</Link>.
       </p>
     </div>
   );
