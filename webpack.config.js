@@ -4,11 +4,11 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 const CompressionPlugin = require("compression-webpack-plugin");
 const DotenvPlugin = require('dotenv-webpack');
 
-module.exports = {
+const config = {
   entry: "./src/index.tsx",
   output: {
     filename: "main.js",
-    path: path.resolve(__dirname, "build"),
+    path: path.resolve(__dirname, "build")
   },
   plugins: [
     new HtmlWebpackPlugin({
@@ -75,4 +75,11 @@ module.exports = {
   resolve: {
     extensions: ["*", ".ts", ".tsx", ".js", ".jsx"],
   },
+};
+
+module.exports = (env, argv) => {
+
+  config.output.publicPath = (argv.mode === 'production') ? '/dt/' : '';
+  return config;
+  
 };
